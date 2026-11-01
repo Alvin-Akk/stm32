@@ -1,0 +1,102 @@
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 build/obj/main.o
+ .data          0x0000000000000000        0x0 build/obj/main.o
+ .bss           0x0000000000000000        0x0 build/obj/main.o
+ .data          0x0000000000000000        0x0 build/obj/startup.o
+ .bss           0x0000000000000000        0x0 build/obj/startup.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x0000000008000000 0x0000000000100000 xr
+RAM              0x0000000020000000 0x0000000000020000 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD build/obj/main.o
+LOAD build/obj/startup.o
+                0x0000000020020000                _estack = (ORIGIN (RAM) + LENGTH (RAM))
+
+.isr_vector     0x0000000008000000        0x8
+ *(.isr_vector)
+ .isr_vector    0x0000000008000000        0x8 build/obj/startup.o
+
+.text           0x0000000008000008       0x88
+ *(.text*)
+ .text.startup.main
+                0x0000000008000008       0x48 build/obj/main.o
+                0x0000000008000008                main
+ .text          0x0000000008000050       0x40 build/obj/startup.o
+                0x0000000008000050                Reset_Handler
+ *(.rodata*)
+                0x0000000008000090                _sidata = LOADADDR (.data)
+
+.glue_7         0x0000000008000090        0x0
+ .glue_7        0x0000000008000090        0x0 linker stubs
+
+.glue_7t        0x0000000008000090        0x0
+ .glue_7t       0x0000000008000090        0x0 linker stubs
+
+.vfp11_veneer   0x0000000008000090        0x0
+ .vfp11_veneer  0x0000000008000090        0x0 linker stubs
+
+.v4_bx          0x0000000008000090        0x0
+ .v4_bx         0x0000000008000090        0x0 linker stubs
+
+.iplt           0x0000000008000090        0x0
+ .iplt          0x0000000008000090        0x0 build/obj/main.o
+
+.rel.dyn        0x0000000008000090        0x0
+ .rel.iplt      0x0000000008000090        0x0 build/obj/main.o
+
+.data           0x0000000020000000        0x0 load address 0x0000000008000090
+                0x0000000020000000                _sdata = .
+ *(.data*)
+                0x0000000020000000                _edata = .
+
+.igot.plt       0x0000000020000000        0x0 load address 0x0000000008000090
+ .igot.plt      0x0000000020000000        0x0 build/obj/main.o
+
+.bss            0x0000000020000000        0x0 load address 0x0000000008000090
+                0x0000000020000000                _sbss = .
+ *(.bss*)
+ *(COMMON)
+                0x0000000020000000                _ebss = .
+OUTPUT(build/bin/hello.elf elf32-littlearm)
+
+.debug_info     0x0000000000000000       0xc6
+ .debug_info    0x0000000000000000       0xc6 build/obj/main.o
+
+.debug_abbrev   0x0000000000000000       0x95
+ .debug_abbrev  0x0000000000000000       0x95 build/obj/main.o
+
+.debug_aranges  0x0000000000000000       0x20
+ .debug_aranges
+                0x0000000000000000       0x20 build/obj/main.o
+
+.debug_ranges   0x0000000000000000       0x28
+ .debug_ranges  0x0000000000000000       0x28 build/obj/main.o
+
+.debug_line     0x0000000000000000      0x11d
+ .debug_line    0x0000000000000000      0x11d build/obj/main.o
+
+.debug_str      0x0000000000000000      0x130
+ .debug_str     0x0000000000000000      0x130 build/obj/main.o
+                                        0x164 (size before relaxing)
+
+.comment        0x0000000000000000       0x7b
+ .comment       0x0000000000000000       0x7b build/obj/main.o
+                                         0x7c (size before relaxing)
+
+.ARM.attributes
+                0x0000000000000000       0x31
+ .ARM.attributes
+                0x0000000000000000       0x33 build/obj/main.o
+ .ARM.attributes
+                0x0000000000000033       0x21 build/obj/startup.o
+
+.debug_frame    0x0000000000000000       0x24
+ .debug_frame   0x0000000000000000       0x24 build/obj/main.o
